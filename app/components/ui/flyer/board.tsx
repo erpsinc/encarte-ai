@@ -1,5 +1,6 @@
 'use client';
 import { Flyer, FlyerHeader, FlyerBody, FlyerFooter } from '@/app/components/flyer';
+import { Button } from '@/app/components/ui/button';
 
 const products = [
   {
@@ -24,20 +25,22 @@ const products = [
   }
 ]
 
-export default function FlyerTable() {
+export default function FlyerTable({
+  zoom
+}: { 
+  zoom: number
+}) {
   return (
-    <div>
-      <Flyer width='1080'>
-       <>
-        <FlyerHeader height='220' />
-        <FlyerBody 
-          products={products}
-          layout={[1, 2, 1]}
-          style={{ height: '1500' }}
-        />
-        <FlyerFooter height='200' />
-       </>
-      </Flyer>
-    </div>
+    <Flyer width='1080' zoom={zoom}>
+      <>
+      <FlyerHeader height='220' />
+      <FlyerBody 
+        products={products}
+        layout={[2, 1, 1]}
+        style={{height: '1500'}}
+      />
+      <FlyerFooter height='200' />
+      </>
+    </Flyer>
   )
 }

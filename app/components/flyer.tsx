@@ -1,17 +1,21 @@
 'use client';
 
 import { CSSProperties } from "react";
-import { useState, useEffect } from "react";
 
 export function Flyer({
   children,
-  width
+  width,
+  zoom,
 }: {
   children: React.ReactElement,
   width: string,
+  zoom: number,
 }) {
   return (
-    <div style={{ width: `${width}px`, display: 'flex', flexDirection: 'column' }}>
+    <div className="flex flex-col" style={{
+      width: `${width}px`,
+      transform: `scale(${zoom})`,
+    }}>
       {children}
     </div>
   )
@@ -85,7 +89,7 @@ export function FlyerBody({ products, style, layout }: FlyerBodyProps) {
   // console.log(variations);
   let nextIndex = -1;
   return (
-    <div style={{
+    <div className="flyer-body" style={{
       display: 'flex',
       flexDirection: 'column',
       flexGrow: '1',
@@ -94,26 +98,28 @@ export function FlyerBody({ products, style, layout }: FlyerBodyProps) {
       border: '1px solid',
     }}>
 
-
-      {/* row */}
+      {/* rows */}
       {layout.map((value, index) => (
-        
-      <div style={{
-        height: '100%',
-        display: 'flex',
-        backgroundColor: 'purple',
-        marginBottom: '2px',
-        padding: '0px 10px 0px 10px'
-      }} key={index}>
+        <div className="flyer-row" style={{
+          height: '100%',
+          display: 'flex',
+          backgroundColor: 'purple',
+          marginBottom: '2px',
+          padding: '0px 10px 0px 10px'
+        }} key={index}>
           {Array.from({ length: value }, (v, k) => {
             nextIndex++
             return (
-              <div key={nextIndex} className="product" style={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>
-                <div style={{ backgroundColor: 'white' }}>
+              <div className="flyer-product" key={nextIndex} style={{
+                display: 'flex',
+                flexGrow: '1',
+                flexDirection: 'column'
+              }}>
+                <div className="flyer-product__description" style={{ backgroundColor: 'white' }}>
                   {products[nextIndex].description}
                 </div>
 
-                <div className="product-image" style={{
+                <div className="flyer-product__image" style={{
                   backgroundColor: 'white',
                   width: '100%',
                   height: '100%',
@@ -124,7 +130,7 @@ export function FlyerBody({ products, style, layout }: FlyerBodyProps) {
                 }}>
                 </div>
 
-                <div style={{ backgroundColor: 'white', height: '100px' }}>
+                <div className="flyer-product__price" style={{ backgroundColor: 'white', height: '100px' }}>
                   R${products[nextIndex].price}
                 </div>
               </div>
